@@ -1,5 +1,5 @@
 {
-  "name": "bistro-boss-client",
+  "name": "online-foodhub-client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,13 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@smastrom/react-rating": "^1.3.1",
-    "@stripe/react-stripe-js": "^2.1.0",
-    "@stripe/stripe-js": "^1.54.0",
+    "@stripe/react-stripe-js": "^2.1.1",
+    "@stripe/stripe-js": "^1.54.1",
     "@tanstack/react-query": "^4.29.7",
     "axios": "^1.4.0",
     "daisyui": "^2.51.6",
-    "firebase": "^9.22.0",
+    "firebase": "^9.22.2",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",

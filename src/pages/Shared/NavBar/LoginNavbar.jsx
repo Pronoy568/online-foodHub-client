@@ -6,7 +6,7 @@ import useCart from "../../../hooks/useCart";
 import useAdmin from "../../../hooks/useAdmin";
 import useUser from "../../../hooks/useUser";
 
-const NavBar = () => {
+const LoginNavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
   const [isUser] = useUser();
@@ -83,7 +83,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar justify-evenly fixed z-10 bg-opacity-30 bg-black text-white">
+      <div className="navbar bg-black text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -119,4 +119,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default LoginNavBar;

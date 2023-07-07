@@ -70,7 +70,6 @@ const AddItem = () => {
                             <option>Salad</option>
                             <option>Dessert</option>
                             <option>Desi</option>
-                            <option>Drinks</option>
                         </select>
                     </div>
                     <div className="form-control w-full ml-4">

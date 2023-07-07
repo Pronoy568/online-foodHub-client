@@ -1,16 +1,28 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import useCart from "../../../hooks/useCart";
 import useAdmin from "../../../hooks/useAdmin";
 import useUser from "../../../hooks/useUser";
+import { FaMapMarker } from "react-icons/fa";
 
-const NavBar = () => {
+const HomeNavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
   const [isUser] = useUser();
   const [cart] = useCart();
+  const location = useLocation();
+
+  const [address, setAddress] = useState("");
+  const [addressShow, setAddressShow] = useState("enter address");
+  const handleButtonClick = () => {
+    if (address) {
+      const newAddressText = `${address}`;
+      setAddressShow(newAddressText);
+    }
+  };
+
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -20,13 +32,13 @@ const NavBar = () => {
   const navOptions = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <Link className="-mx-1" to="/">Home</Link>
       </li>
       <li>
-        <Link to="/menu">Our Menu</Link>
+        <Link className="-mx-1" to="/menu">Our Menu</Link>
       </li>
       <li>
-        <Link to="/order/salad">Order Food</Link>
+        <Link className="-mx-1" to="/order/salad">Order Food</Link>
       </li>
       {user ? (
         isAdmin ? (
@@ -41,12 +53,12 @@ const NavBar = () => {
       ) : (
         <></>
       )}
-      {isUser ? (
+      {isUser && location.pathname != '/' ? (
         <>
           {" "}
           <li>
             <Link to="/dashboard/mycart">
-              <button className="btn gap-2">
+              <button className="btn gap-1">
                 <FaShoppingCart></FaShoppingCart>
                 <div className="badge badge-secondary">
                   +{cart?.length || 0}
@@ -62,7 +74,7 @@ const NavBar = () => {
         <div className="flex justify-center items-center">
           <div className="tooltip tooltip-bottom" data-tip={user?.displayName}>
             <img
-              className="w-16 rounded-full"
+              className="w-10 rounded-full"
               src={user?.photoURL}
               alt={user?.displayName}
             />
@@ -83,7 +95,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar justify-evenly fixed z-10 bg-opacity-30 bg-black text-white">
+      <div className="navbar items-center justify-evenly fixed z-10 bg-opacity-30 bg-black text-black md:text-white">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -111,12 +123,38 @@ const NavBar = () => {
           </div>
           <a className="btn btn-ghost normal-case text-xl">Online FoodHub</a>
         </div>
+        <div>
+          <div>
+            <h1 className="inline-flex items-center">
+              DELIVERING TO:{" "}
+              <span className="mx-2">
+                <FaMapMarker />
+              </span>{" "}
+              New address: {addressShow}
+            </h1>
+            <div className="flex items-center justify-center">
+              <input
+                type="text"
+                placeholder="Enter your full address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+              <button
+                className="mb-5 bg-gray-500 text-white rounded text-center"
+                onClick={handleButtonClick}
+              >
+                <span>&#8594;</span>
+              </button>
+            </div>
+          </div>
+        </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+          {/* <ul className="menu menu-horizontal px-1">{navOptions}</ul> */}
+          <ul className="menu menu-horizontal">{navOptions}</ul>
         </div>
       </div>
     </>
   );
 };
 
-export default NavBar;
+export default HomeNavBar;

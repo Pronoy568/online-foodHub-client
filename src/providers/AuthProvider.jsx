@@ -29,7 +29,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const logOut = () => {
-        setLoading(true);
+        setLoading(false);
         return signOut(auth);
     }
 
@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
 
             // get and set token
             if(currentUser){
-                axios.post('https://bistro-boss-server-fawn.vercel.app/jwt', {email: currentUser.email})
+                axios.post('https://online-foodhub-server.vercel.app/jwt', {email: currentUser.email})
                 .then(data =>{
                     // console.log(data.data.token)
                     localStorage.setItem('access-token', data.data.token)
@@ -54,7 +54,8 @@ const AuthProvider = ({ children }) => {
                 })
             }
             else{
-                localStorage.removeItem('access-token')
+                localStorage.removeItem('access-token');
+                setLoading(false);
             }
 
             
